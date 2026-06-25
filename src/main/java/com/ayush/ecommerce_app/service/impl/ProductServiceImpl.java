@@ -4,6 +4,9 @@ import com.ayush.ecommerce_app.dto.product.ProductRequest;
 import com.ayush.ecommerce_app.dto.product.ProductResponse;
 import com.ayush.ecommerce_app.entity.Category;
 import com.ayush.ecommerce_app.entity.Product;
+import com.ayush.ecommerce_app.exception.CategoryNotFoundException;
+import com.ayush.ecommerce_app.exception.DuplicateResourceException;
+import com.ayush.ecommerce_app.exception.ProductNotFoundException;
 import com.ayush.ecommerce_app.repository.CategoryRepository;
 import com.ayush.ecommerce_app.repository.ProductRepository;
 import com.ayush.ecommerce_app.service.ProductService;
@@ -29,11 +32,13 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponse createProduct(ProductRequest request) {
 
         if (productRepository.existsByName(request.getName())) {
-            throw new RuntimeException("Product already exists");
+            throw new DuplicateResourceException("Product already exists");
         }
 
         Category category = categoryRepository.findById(request.getCategoryId())
-                .orElseThrow(() -> new RuntimeException("Category not found"));
+                .orElseThrow(() -> new
+                        CategoryNotFoundException("Category with id " +
+                        request.getCategoryId() + " not found"));
 
         Product product = Product.builder()
                 .name(request.getName())
@@ -85,7 +90,9 @@ public class ProductServiceImpl implements ProductService {
 //        );
         System.out.println("DATABASE HIT happen");
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new
+                        ProductNotFoundException("Product with id " +
+                        id + " not found"));
 
         return ProductResponse.builder()
                 .id(product.getId())
@@ -105,10 +112,12 @@ public class ProductServiceImpl implements ProductService {
     public ProductResponse updateProduct(Long id, ProductRequest request) {
 
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new ProductNotFoundException("product with id " + id + " not found"));
 
         Category category = categoryRepository.findById(request.getCategoryId())
-                .orElseThrow(() -> new RuntimeException("Category not found"));
+                .orElseThrow(() -> new
+                        CategoryNotFoundException
+                        ("Category with id " + request.getCategoryId() + " not found"));
 
         product.setName(request.getName());
         product.setDescription(request.getDescription());
@@ -136,7 +145,8 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(Long id) {
 
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new
+                        ProductNotFoundException("Product with id " + id + " not found"));
 
         productRepository.delete(product);
     }

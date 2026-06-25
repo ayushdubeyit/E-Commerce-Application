@@ -3,6 +3,8 @@ package com.ayush.ecommerce_app.service.impl;
 import com.ayush.ecommerce_app.dto.category.CategoryResponse;
 import com.ayush.ecommerce_app.dto.category.CreateCategoryRequest;
 import com.ayush.ecommerce_app.entity.Category;
+import com.ayush.ecommerce_app.exception.CategoryNotFoundException;
+import com.ayush.ecommerce_app.exception.DuplicateResourceException;
 import com.ayush.ecommerce_app.repository.CategoryRepository;
 import com.ayush.ecommerce_app.service.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
     @CacheEvict(value = "categories", allEntries = true)
     public CategoryResponse createCategory(CreateCategoryRequest request) {
         if (repository.existsByName(request.getName())) {
-            throw new RuntimeException(
+            throw new DuplicateResourceException(
                     "Category already exists");
         }
         Category category = Category.builder()
@@ -57,7 +59,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryResponse getCategoryById(Long id) {
         Category category = repository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Category not found"));
+                        new CategoryNotFoundException("Category with id " + id + " not found"));
 
         return CategoryResponse.builder()
                 .id(category.getId())
@@ -74,7 +76,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         Category category = repository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Category not found"));
+                        new CategoryNotFoundException("Category with id  " +  id + " not found"));
 
         category.setName(request.getName());
 
@@ -96,7 +98,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         Category category = repository.findById(id)
                 .orElseThrow(() ->
-                        new RuntimeException("Category not found"));
+                        new CategoryNotFoundException("Category with id " + id + " not found"));
 
         repository.delete(category);
     }

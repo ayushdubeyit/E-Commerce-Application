@@ -18,10 +18,10 @@ public class EcommerceAppApplication {
 
 
 
-    @Bean
-    CommandLineRunner cacheTest(CacheManager cacheManager) {
-        return args -> {
-            System.out.println("Cache Manager: " + cacheManager.getClass().getName());
-        };
-    }
+//    @Bean
+//    CommandLineRunner cacheTest(CacheManager cacheManager) {
+//        return args -> {
+//            System.out.println("Cache Manager: " + cacheManager.getClass().getName());
+//        };
+//    }
 }

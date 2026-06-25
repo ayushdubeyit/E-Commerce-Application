@@ -1,0 +1,25 @@
+# Maven
+target/
+
+# IntelliJ
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Environment
+.env
+
+# Spring Boot Secret Config
+src/main/resources/application.properties
+
+# Optional
+src/main/resources/application.yml
+
+# OS Files
+.DS_Store
+Thumbs.db

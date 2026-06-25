@@ -4,5 +4,6 @@ public class DuplicateResourceException extends RuntimeException{
 
     public DuplicateResourceException(String message) {
         super(message);
+        System.out.println("Tesing");
     }
 }

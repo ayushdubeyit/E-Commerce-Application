@@ -7,6 +7,7 @@ import com.ayush.ecommerce_app.dto.user.RegisterRequest;
 import com.ayush.ecommerce_app.dto.user.UserResponse;
 import com.ayush.ecommerce_app.security.AuthenticationService;
 import com.ayush.ecommerce_app.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,14 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 
         @PostMapping("/register")
         public UserResponse register(
-                @RequestBody RegisterRequest request) {
+               @Valid @RequestBody RegisterRequest request) {
 
             return userService.register(request);
         }
 
         @PostMapping("/login")
         public AuthResponse login(
-                @RequestBody LoginRequest request) {
+              @Valid  @RequestBody LoginRequest request) {
 
             return authenticationService.login(request);
         }

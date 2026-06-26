@@ -19,5 +19,5 @@ public class AddToCartRequest {
 
     @NotNull(message = "Quantity is required")
     @Min(message = "Quantity must be at least 1", value = 1)
-    private Integer Quantity;
+    private Integer quantity;
 }

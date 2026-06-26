@@ -1,6 +1,8 @@
 package com.ayush.ecommerce_app.controller;
 
 
+import com.ayush.ecommerce_app.dto.auth.RefreshTokenRequest;
+import com.ayush.ecommerce_app.dto.auth.RefreshTokenResponse;
 import com.ayush.ecommerce_app.dto.login.AuthResponse;
 import com.ayush.ecommerce_app.dto.login.LoginRequest;
 import com.ayush.ecommerce_app.dto.user.RegisterRequest;
@@ -36,5 +38,12 @@ import org.springframework.web.bind.annotation.RestController;
 
             return authenticationService.login(request);
         }
+
+    @PostMapping("/refresh-token")
+    public RefreshTokenResponse refreshToken(
+            @Valid @RequestBody RefreshTokenRequest request){
+
+        return authenticationService.refreshToken(request);
+    }
     }
 

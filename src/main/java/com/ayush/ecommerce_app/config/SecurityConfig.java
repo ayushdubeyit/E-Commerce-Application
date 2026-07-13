@@ -48,6 +48,11 @@ public class SecurityConfig {
                                 "/api/categories/**"
                         ).permitAll()
 
+                        .requestMatchers(
+                                "/api/users/register"
+                        ).permitAll()
+
+
                         .anyRequest()
                         .authenticated()
                 )

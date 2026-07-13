@@ -1,6 +1,7 @@
-package com.ayush.ecommerce_app.dto.order;
+package com.ayush.ecommerce_app.controller;
 
 
+import com.ayush.ecommerce_app.dto.order.OrderResponse;
 import com.ayush.ecommerce_app.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
